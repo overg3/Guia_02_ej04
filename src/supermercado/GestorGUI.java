@@ -5,9 +5,10 @@
  */
 package supermercado;
 
-import java.awt.Color;
-import java.awt.Font;
+import java.util.Iterator;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -95,6 +96,11 @@ public class GestorGUI extends javax.swing.JInternalFrame {
         });
 
         button_del.setText("Quitar Producto");
+        button_del.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_delActionPerformed(evt);
+            }
+        });
 
         label_verification.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         label_verification.setForeground(new java.awt.Color(255, 0, 0));
@@ -224,10 +230,10 @@ public class GestorGUI extends javax.swing.JInternalFrame {
             }
 
         } else {
-            JOptionPane.showMessageDialog(this, "Debe seleccionar un rubro", 
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un rubro",
                     "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
-        
+
         clearFields();
 
     }//GEN-LAST:event_button_addActionPerformed
@@ -281,6 +287,33 @@ public class GestorGUI extends javax.swing.JInternalFrame {
 
 
     }//GEN-LAST:event_field_priceFocusLost
+
+    private void button_delActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_delActionPerformed
+
+        JFrame rootFrame = (JFrame) SwingUtilities.getWindowAncestor(GestorGUI.this);
+
+        QuitarGUI quitarWindow = new QuitarGUI(rootFrame);
+        quitarWindow.setVisible(true);
+
+        try {
+            int codigo = Integer.parseInt(quitarWindow.getCodigoIngresado());
+
+            Iterator<Producto> iterator = MenuGUI.listaProductos.iterator();
+            while (iterator.hasNext()) {
+                Producto next = iterator.next();
+                if (next.getCodigo() == codigo) {
+                    iterator.remove();
+                    break;
+                }
+            }
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "El valor ingresado es incorrecto",
+                    "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
+
+
+    }//GEN-LAST:event_button_delActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
