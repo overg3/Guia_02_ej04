@@ -43,7 +43,7 @@ public class GestorGUI extends javax.swing.JInternalFrame {
         jLabel7 = new javax.swing.JLabel();
         field_price = new javax.swing.JTextField();
         field_stock = new javax.swing.JTextField();
-        button_new = new javax.swing.JButton();
+        button_clean = new javax.swing.JButton();
         button_add = new javax.swing.JButton();
         button_del = new javax.swing.JButton();
         label_verification = new javax.swing.JLabel();
@@ -80,10 +80,10 @@ public class GestorGUI extends javax.swing.JInternalFrame {
             }
         });
 
-        button_new.setText("Limpiar Formulario");
-        button_new.addActionListener(new java.awt.event.ActionListener() {
+        button_clean.setText("Limpiar Formulario");
+        button_clean.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button_newActionPerformed(evt);
+                button_cleanActionPerformed(evt);
             }
         });
 
@@ -117,7 +117,7 @@ public class GestorGUI extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addComponent(button_del)
                         .addGap(18, 18, 18)
-                        .addComponent(button_new))
+                        .addComponent(button_clean))
                     .addComponent(jLabel5)
                     .addComponent(jLabel4)
                     .addGroup(layout.createSequentialGroup()
@@ -176,18 +176,18 @@ public class GestorGUI extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(button_add)
                     .addComponent(button_del)
-                    .addComponent(button_new))
+                    .addComponent(button_clean))
                 .addGap(42, 42, 42))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void button_newActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_newActionPerformed
+    private void button_cleanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_cleanActionPerformed
 
         clearFields();
 
-    }//GEN-LAST:event_button_newActionPerformed
+    }//GEN-LAST:event_button_cleanActionPerformed
 
     private void button_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_addActionPerformed
 
@@ -227,6 +227,8 @@ public class GestorGUI extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Debe seleccionar un rubro", 
                     "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
+        
+        clearFields();
 
     }//GEN-LAST:event_button_addActionPerformed
 
@@ -283,8 +285,8 @@ public class GestorGUI extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton button_add;
+    private javax.swing.JButton button_clean;
     private javax.swing.JButton button_del;
-    private javax.swing.JButton button_new;
     private javax.swing.JComboBox<String> combo_cat;
     private javax.swing.JTextField field_code;
     private javax.swing.JTextField field_desc;
@@ -307,6 +309,8 @@ public class GestorGUI extends javax.swing.JInternalFrame {
         field_price.setText("");
         field_stock.setText("");
         combo_cat.setSelectedIndex(0);
+        label_verification.setVisible(false);
+        label_verification2.setVisible(false);
     }
 
     private void agregarProducto(int codigo, String desc, float precio,

@@ -31,7 +31,7 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="button_del" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="button_new" min="-2" max="-2" attributes="0"/>
+                      <Component id="button_clean" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
@@ -105,7 +105,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="button_add" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="button_del" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="button_new" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="button_clean" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
           </Group>
@@ -177,12 +177,12 @@
     </Component>
     <Component class="javax.swing.JTextField" name="field_stock">
     </Component>
-    <Component class="javax.swing.JButton" name="button_new">
+    <Component class="javax.swing.JButton" name="button_clean">
       <Properties>
         <Property name="text" type="java.lang.String" value="Limpiar Formulario"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button_newActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button_cleanActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="button_add">
