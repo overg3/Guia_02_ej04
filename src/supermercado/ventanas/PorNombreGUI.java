@@ -3,9 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package supermercado;
+package supermercado.ventanas;
 
 import javax.swing.table.DefaultTableModel;
+import supermercado.MenuGUI;
+import supermercado.Producto;
 
 /**
  *

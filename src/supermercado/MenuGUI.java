@@ -1,16 +1,20 @@
 package supermercado;
 
+import supermercado.ventanas.PorNombreGUI;
+import supermercado.ventanas.PorPrecioGUI;
+import supermercado.ventanas.GestorGUI;
+import supermercado.ventanas.PorRubroGUI;
 import java.util.TreeSet;
 
 public class MenuGUI extends javax.swing.JFrame {
-    
+
     public static TreeSet<Producto> listaProductos = new TreeSet();
-    
+
     public MenuGUI() {
         initComponents();
         cargarProductos();
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -109,7 +113,7 @@ public class MenuGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         jDesktopPane1.removeAll();
         jDesktopPane1.repaint();
-        
+
         PorNombreGUI porNombreWindow = new PorNombreGUI();
         int x = (getWidth() - porNombreWindow.getWidth()) / 2;
         int y = (getHeight() - porNombreWindow.getHeight()) / 2;
@@ -123,7 +127,7 @@ public class MenuGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         jDesktopPane1.removeAll();
         jDesktopPane1.repaint();
-        
+
         PorRubroGUI porRubroWindow = new PorRubroGUI();
         int x = (getWidth() - porRubroWindow.getWidth()) / 2;
         int y = (getHeight() - porRubroWindow.getHeight()) / 2;
@@ -136,10 +140,10 @@ public class MenuGUI extends javax.swing.JFrame {
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         // TODO add your handling code here:
-        
+
         jDesktopPane1.removeAll();
         jDesktopPane1.repaint();
-        
+
         PorPrecioGUI porPrecioWindow = new PorPrecioGUI();
         int x = (getWidth() - porPrecioWindow.getWidth()) / 2;
         int y = (getHeight() - porPrecioWindow.getHeight()) / 2;
@@ -154,10 +158,10 @@ public class MenuGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        
+
         jDesktopPane1.removeAll();
         jDesktopPane1.repaint();
-        
+
         GestorGUI gestorWindow = new GestorGUI();
         int x = (getWidth() - gestorWindow.getWidth()) / 2;
         int y = (getHeight() - gestorWindow.getHeight()) / 2;
@@ -165,7 +169,7 @@ public class MenuGUI extends javax.swing.JFrame {
         gestorWindow.setVisible(true);
         jDesktopPane1.add(gestorWindow);
         jDesktopPane1.moveToFront(gestorWindow);
-        
+
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
@@ -216,12 +220,23 @@ public class MenuGUI extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void cargarProductos() {
-        
+
         listaProductos.add(new Producto(12, "Azúcar", 250, 520, Categoria.COMESTIBLE));
         listaProductos.add(new Producto(15, "Yerba Mate", 850, 10, Categoria.COMESTIBLE));
-        listaProductos.add(new Producto(5, "Aceite Girasol", 1420, 5, Categoria.COMESTIBLE));
-        listaProductos.add(new Producto(22, "Detergente", 12, 780, Categoria.LIMPIEZA));
+        listaProductos.add(new Producto(35, "Aceite Girasol", 1420, 5, Categoria.COMESTIBLE));
+        listaProductos.add(new Producto(78, "Harina Negra Flor", 1080, 24, Categoria.COMESTIBLE));
+        listaProductos.add(new Producto(97, "Galletitas Pack", 1512, 32, Categoria.COMESTIBLE));
+        listaProductos.add(new Producto(123, "Cereales Crack'n'Crap", 1420, 31, Categoria.COMESTIBLE));
+
+        listaProductos.add(new Producto(154, "Detergente Patito", 840, 15, Categoria.LIMPIEZA));
+        listaProductos.add(new Producto(207, "Desinfectante Tuyú", 980, 20, Categoria.LIMPIEZA));
+        listaProductos.add(new Producto(309, "Escoba BarremeTodo", 1020, 40, Categoria.LIMPIEZA));
+        listaProductos.add(new Producto(450, "Bolsas de basura Pack x10", 520, 125, Categoria.LIMPIEZA));
         
+        listaProductos.add(new Producto(31, "Perfume Kevin Piedrozo", 2530, 10, Categoria.PERFUMERIA));
+        listaProductos.add(new Producto(93, "Jabón de tocador RexDona", 930, 25, Categoria.PERFUMERIA));
+        listaProductos.add(new Producto(93, "Crema hidratante PielRota", 1890, 23, Categoria.PERFUMERIA));
+
     }
-    
+
 }

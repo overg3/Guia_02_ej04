@@ -1,6 +1,8 @@
-package supermercado;
+package supermercado.ventanas;
 
 import javax.swing.table.DefaultTableModel;
+import supermercado.MenuGUI;
+import supermercado.Producto;
 
 public class PorRubroGUI extends javax.swing.JInternalFrame {
 

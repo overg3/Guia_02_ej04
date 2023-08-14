@@ -3,12 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package supermercado;
+package supermercado.ventanas;
 
 import java.util.Iterator;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+import supermercado.Categoria;
+import supermercado.MenuGUI;
+import supermercado.Producto;
 
 /**
  *
@@ -190,17 +193,17 @@ public class GestorGUI extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void button_cleanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_cleanActionPerformed
-
+        
         clearFields();
 
     }//GEN-LAST:event_button_cleanActionPerformed
 
     private void button_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_addActionPerformed
-
+        
         boolean productFound = false;
-
+        
         if (combo_cat.getSelectedIndex() != 0) {
-
+            
             try {
                 int codigo = Integer.parseInt(field_code.getText());
                 String desc = field_desc.getText();
@@ -208,7 +211,7 @@ public class GestorGUI extends javax.swing.JInternalFrame {
                 int stock = Integer.parseInt(field_stock.getText());
                 String rubro = (String) combo_cat.getSelectedItem();
                 Categoria rubroEnum = Categoria.valueOf(rubro);
-
+                
                 for (Producto producto : MenuGUI.listaProductos) {
                     if (producto.getCodigo() == codigo) {
                         productFound = true;
@@ -218,7 +221,7 @@ public class GestorGUI extends javax.swing.JInternalFrame {
                         break;
                     }
                 }
-
+                
                 if (productFound == false) {
                     agregarProducto(codigo, desc, precio, stock, rubroEnum);
                     JOptionPane.showMessageDialog(this, "Producto agregado con éxito",
@@ -228,29 +231,29 @@ public class GestorGUI extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "Valores ingresados incorrectos",
                         "ERROR", JOptionPane.ERROR_MESSAGE);
             }
-
+            
         } else {
             JOptionPane.showMessageDialog(this, "Debe seleccionar un rubro",
                     "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
-
+        
         clearFields();
 
     }//GEN-LAST:event_button_addActionPerformed
 
     private void field_codeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_field_codeKeyReleased
-
+        
         String inputCodeText = field_code.getText().trim();
         boolean codeFound = false;
         boolean codeWrong = false;
         boolean codeDiff = true;
-
+        
         if (!inputCodeText.isEmpty()) {
-
+            
             try {
-
+                
                 int inputCode = Integer.parseInt(field_code.getText());
-
+                
                 for (Producto producto : MenuGUI.listaProductos) {
                     if (producto.getCodigo() == inputCode) {
                         codeFound = true;
@@ -265,9 +268,9 @@ public class GestorGUI extends javax.swing.JInternalFrame {
                 codeDiff = false;
                 codeFound = false;
             }
-
+            
         }
-
+        
         if (codeWrong == false) {
             label_verification.setText("El producto ya existe");
         }
@@ -277,41 +280,46 @@ public class GestorGUI extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_field_codeKeyReleased
 
     private void field_priceFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_field_priceFocusLost
-
+        
         try {
             float productPrice = Float.parseFloat(field_price.getText());
             field_price.setText("" + productPrice);
         } catch (NumberFormatException e) {
             field_price.setText("" + 0);
         }
-
+        
 
     }//GEN-LAST:event_field_priceFocusLost
 
     private void button_delActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_delActionPerformed
-
+        
         JFrame rootFrame = (JFrame) SwingUtilities.getWindowAncestor(GestorGUI.this);
-
+        
         QuitarGUI quitarWindow = new QuitarGUI(rootFrame);
         quitarWindow.setVisible(true);
-
-        try {
-            int codigo = Integer.parseInt(quitarWindow.getCodigoIngresado());
-
-            Iterator<Producto> iterator = MenuGUI.listaProductos.iterator();
-            while (iterator.hasNext()) {
-                Producto next = iterator.next();
-                if (next.getCodigo() == codigo) {
-                    iterator.remove();
-                    break;
+        
+        String inputCode = quitarWindow.getCodigoIngresado();
+        
+        if (inputCode != null) {
+            try {
+                
+                int codigo = Integer.parseInt(quitarWindow.getCodigoIngresado());
+                
+                Iterator<Producto> iterator = MenuGUI.listaProductos.iterator();
+                while (iterator.hasNext()) {
+                    Producto next = iterator.next();
+                    if (next.getCodigo() == codigo) {
+                        iterator.remove();
+                        break;
+                    }
                 }
-            }
-
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "El valor ingresado es incorrecto",
-                    "Advertencia", JOptionPane.WARNING_MESSAGE);
+                
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "El valor ingresado es incorrecto",
+                        "Advertencia", JOptionPane.WARNING_MESSAGE);
+            }            
         }
-
+        
 
     }//GEN-LAST:event_button_delActionPerformed
 
@@ -345,12 +353,12 @@ public class GestorGUI extends javax.swing.JInternalFrame {
         label_verification.setVisible(false);
         label_verification2.setVisible(false);
     }
-
+    
     private void agregarProducto(int codigo, String desc, float precio,
             int stock, Categoria rubro) {
-
+        
         MenuGUI.listaProductos.add(new Producto(codigo, desc, precio, stock, rubro));
-
+        
     }
-
+    
 }
