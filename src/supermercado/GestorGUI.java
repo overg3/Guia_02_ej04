@@ -7,6 +7,7 @@ package supermercado;
 
 import java.awt.Color;
 import java.awt.Font;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -73,21 +74,27 @@ public class GestorGUI extends javax.swing.JInternalFrame {
 
         jLabel7.setText("$");
 
-        button_new.setText("Nuevo Producto");
+        field_price.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                field_priceFocusLost(evt);
+            }
+        });
+
+        button_new.setText("Limpiar Formulario");
         button_new.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 button_newActionPerformed(evt);
             }
         });
 
-        button_add.setText("Agregar");
+        button_add.setText("Agregar Producto");
         button_add.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 button_addActionPerformed(evt);
             }
         });
 
-        button_del.setText("Quitar");
+        button_del.setText("Quitar Producto");
 
         label_verification.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         label_verification.setForeground(new java.awt.Color(255, 0, 0));
@@ -103,8 +110,14 @@ public class GestorGUI extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(43, 43, 43)
+                .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(button_add)
+                        .addGap(18, 18, 18)
+                        .addComponent(button_del)
+                        .addGap(18, 18, 18)
+                        .addComponent(button_new))
                     .addComponent(jLabel5)
                     .addComponent(jLabel4)
                     .addGroup(layout.createSequentialGroup()
@@ -126,23 +139,16 @@ public class GestorGUI extends javax.swing.JInternalFrame {
                             .addComponent(field_stock, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(field_price, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(combo_cat, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel2)
-                            .addGap(18, 18, 18)
-                            .addComponent(field_desc, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(button_new)
-                            .addGap(18, 18, 18)
-                            .addComponent(button_add)
-                            .addGap(18, 18, 18)
-                            .addComponent(button_del))))
-                .addContainerGap(25, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(field_desc, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(17, 17, 17)
+                .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(field_desc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -166,12 +172,12 @@ public class GestorGUI extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(combo_cat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
+                .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(button_new)
                     .addComponent(button_add)
-                    .addComponent(button_del))
-                .addContainerGap(34, Short.MAX_VALUE))
+                    .addComponent(button_del)
+                    .addComponent(button_new))
+                .addGap(42, 42, 42))
         );
 
         pack();
@@ -185,14 +191,42 @@ public class GestorGUI extends javax.swing.JInternalFrame {
 
     private void button_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_addActionPerformed
 
-        int codigo = Integer.parseInt(field_code.getText());
-        String desc = field_desc.getText();
-        float precio = Float.parseFloat(field_price.getText());
-        int stock = Integer.parseInt(field_stock.getText());
-        String rubro = (String) combo_cat.getSelectedItem();
-        Categoria rubroEnum = Categoria.valueOf(rubro);
+        boolean productFound = false;
 
-        agregarProducto(codigo, desc, precio, stock, rubroEnum);
+        if (combo_cat.getSelectedIndex() != 0) {
+
+            try {
+                int codigo = Integer.parseInt(field_code.getText());
+                String desc = field_desc.getText();
+                float precio = Float.parseFloat(field_price.getText());
+                int stock = Integer.parseInt(field_stock.getText());
+                String rubro = (String) combo_cat.getSelectedItem();
+                Categoria rubroEnum = Categoria.valueOf(rubro);
+
+                for (Producto producto : MenuGUI.listaProductos) {
+                    if (producto.getCodigo() == codigo) {
+                        productFound = true;
+                        JOptionPane.showMessageDialog(this, "Ya existe un producto"
+                                + " con ese código", "Advertencia",
+                                JOptionPane.WARNING_MESSAGE);
+                        break;
+                    }
+                }
+
+                if (productFound == false) {
+                    agregarProducto(codigo, desc, precio, stock, rubroEnum);
+                    JOptionPane.showMessageDialog(this, "Producto agregado con éxito",
+                            "Nuevo Producto", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Valores ingresados incorrectos",
+                        "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un rubro", 
+                    "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
 
     }//GEN-LAST:event_button_addActionPerformed
 
@@ -200,26 +234,51 @@ public class GestorGUI extends javax.swing.JInternalFrame {
 
         String inputCodeText = field_code.getText().trim();
         boolean codeFound = false;
+        boolean codeWrong = false;
         boolean codeDiff = true;
-        
+
         if (!inputCodeText.isEmpty()) {
-            int inputCode = Integer.parseInt(field_code.getText());
-            
-            for (Producto producto : MenuGUI.listaProductos) {
-                if (producto.getCodigo() == inputCode) {
-                    codeFound = true;
-                    codeDiff = false;
-                    break;
+
+            try {
+
+                int inputCode = Integer.parseInt(field_code.getText());
+
+                for (Producto producto : MenuGUI.listaProductos) {
+                    if (producto.getCodigo() == inputCode) {
+                        codeFound = true;
+                        codeWrong = false;
+                        codeDiff = false;
+                        break;
+                    }
                 }
-            }   
+            } catch (NumberFormatException e) {
+                label_verification.setText("ERROR - Valores incorrectos");
+                codeWrong = true;
+                codeDiff = false;
+                codeFound = false;
+            }
+
         }
-        
-        
-        
-        label_verification.setVisible(codeFound);
+
+        if (codeWrong == false) {
+            label_verification.setText("El producto ya existe");
+        }
+        label_verification.setVisible(codeFound || codeWrong);
         label_verification2.setVisible(!inputCodeText.isEmpty() && codeDiff);
 
     }//GEN-LAST:event_field_codeKeyReleased
+
+    private void field_priceFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_field_priceFocusLost
+
+        try {
+            float productPrice = Float.parseFloat(field_price.getText());
+            field_price.setText("" + productPrice);
+        } catch (NumberFormatException e) {
+            field_price.setText("" + 0);
+        }
+
+
+    }//GEN-LAST:event_field_priceFocusLost
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
